@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace ClipNote.Models
 {
@@ -8,7 +9,34 @@ namespace ClipNote.Models
         {
             Value = text;
 
-            // 入力されたテキストの種類を判別するロジックを書く。
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
+            // 入力されたテキストの種類を判定する。
+            var isInt = int.TryParse(text, out _);
+            var isDouble = double.TryParse(text, out _);
+
+            // 整数か実数のどちらかであるか判定する。
+            if (isInt || isDouble)
+            {
+                Type = TextType.Number;
+                return;
+            }
+
+            // FullPath どうかを判定する。 Windows のパスである前提
+            if (Regex.IsMatch(text, "^[A-Za-z]:\\.*"))
+            {
+                Type = TextType.Path;
+                return;
+            }
+
+            // ファイル名かどうかを判定する。
+            if (Regex.IsMatch(text, ".*\\..*") && !text.Contains("\\"))
+            {
+                Type = TextType.FileName;
+            }
         }
 
         public string Value { get; private set; }
