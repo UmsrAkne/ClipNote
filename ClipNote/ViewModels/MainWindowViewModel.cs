@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using ClipNote.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -11,6 +12,8 @@ namespace ClipNote.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
+        private SortType currentSortType;
+        private string lastCopiedText = string.Empty;
 
         private ObservableCollection<Text> texts = new ObservableCollection<Text>();
 
@@ -31,6 +34,7 @@ namespace ClipNote.ViewModels
         public DelegateCommand<object> SortCommand => new DelegateCommand<object>((param) =>
         {
             var sortType = (SortType)param;
+            currentSortType = sortType;
 
             switch (sortType)
             {
@@ -43,6 +47,25 @@ namespace ClipNote.ViewModels
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        });
+
+        public DelegateCommand ReadClipboardCommand => new DelegateCommand(() =>
+        {
+            if (!Clipboard.ContainsText())
+            {
+                return;
+            }
+
+            var c = Clipboard.GetText();
+
+            if (c == lastCopiedText || string.IsNullOrWhiteSpace(c))
+            {
+                return;
+            }
+
+            lastCopiedText = c;
+            Texts.Add(new Text(c));
+            SortCommand.Execute(currentSortType);
         });
     }
 }
