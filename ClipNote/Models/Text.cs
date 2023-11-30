@@ -43,6 +43,6 @@ namespace ClipNote.Models
 
         public TextType Type { get; private set; } = TextType.Text;
 
-        public DateTime CreatedAt { get; private set; }
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
     }
 }
