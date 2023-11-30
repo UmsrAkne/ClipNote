@@ -1,4 +1,6 @@
-﻿using Prism.Mvvm;
+﻿using System.Collections.ObjectModel;
+using ClipNote.Models;
+using Prism.Mvvm;
 
 namespace ClipNote.ViewModels
 {
@@ -8,5 +10,7 @@ namespace ClipNote.ViewModels
         private string title = "Prism Application";
 
         public string Title { get => title; set => SetProperty(ref title, value); }
+
+        public ObservableCollection<Text> Texts { get; set; } = new ObservableCollection<Text>();
     }
 }

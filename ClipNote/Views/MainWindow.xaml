@@ -13,25 +13,53 @@
     xmlns:prism="http://prismlibrary.com/"
     xmlns:viewModels="clr-namespace:ClipNote.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Window.Resources>
+        <models:DateTimeConverter x:Key="DateTimeConverter" />
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListBox Grid.Row="1">
+        <ListBox
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding Texts}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:Text}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Type}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Value}" />
-                    </Grid>
+                    <StackPanel Margin="0,4">
+                        <DockPanel Margin="0,2">
+                            <TextBlock Margin="2,0" Text="//" />
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Comment}" />
+                        </DockPanel>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="90" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Type}" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="4,0"
+                                Text="{Binding Value}"
+                                TextWrapping="WrapWithOverflow" />
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Margin="4,0"
+                                Text="{Binding CreatedAt, Converter={StaticResource DateTimeConverter}}" />
+                        </Grid>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+
         </ListBox>
     </Grid>
 </Window>
