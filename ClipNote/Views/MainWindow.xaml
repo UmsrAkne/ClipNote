@@ -17,6 +17,20 @@
         <models:DateTimeConverter x:Key="DateTimeConverter" />
     </Window.Resources>
 
+    <Window.InputBindings>
+        <KeyBinding
+            Command="{Binding SortCommand}"
+            CommandParameter="{x:Static models:SortType.DateTime}"
+            Key="D"
+            Modifiers="Control" />
+
+        <KeyBinding
+            Command="{Binding SortCommand}"
+            CommandParameter="{x:Static models:SortType.Type}"
+            Key="T"
+            Modifiers="Control" />
+    </Window.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
