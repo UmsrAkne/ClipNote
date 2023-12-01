@@ -2,5 +2,6 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4541c3b1_002Da2ab_002D4979_002D8b9e_002D68bc2cf5305b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TextTypeの判別テスト" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::6FF866DF-B640-4CCF-AFF0-0E20B43B746B::net6.0-windows::ClipNoteTests.Models.TextTest.TextTypeの判別テスト&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::6FF866DF-B640-4CCF-AFF0-0E20B43B746B::net6.0-windows::ClipNoteTests.Models.TextTest.FileNameの判定テスト&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
