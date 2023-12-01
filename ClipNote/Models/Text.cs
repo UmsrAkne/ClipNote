@@ -33,7 +33,7 @@ namespace ClipNote.Models
             }
 
             // ファイル名かどうかを判定する。
-            if (Regex.IsMatch(text, ".*\\..*") && !text.Contains("\\"))
+            if (Regex.IsMatch(text, @"[a-zA-Z0-9_-]+\..+") && !Regex.IsMatch(text, @"[\r\n \t]"))
             {
                 Type = TextType.FileName;
             }
