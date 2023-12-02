@@ -35,6 +35,12 @@
             Key="S"
             Modifiers="Control" />
 
+        <KeyBinding
+            Command="{Binding AddTextCommand}"
+            CommandParameter="{Binding ElementName=PostTextBox, Path=Text}"
+            Key="Enter"
+            Modifiers="Control" />
+
     </Window.InputBindings>
 
     <Grid>
@@ -107,9 +113,15 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Margin="0,0,2,0" />
+            <TextBox
+                Grid.Column="0"
+                Margin="0,0,2,0"
+                Text="{Binding PostText}"
+                x:Name="PostTextBox" />
 
             <Button
+                Command="{Binding AddTextCommand}"
+                CommandParameter="{Binding ElementName=PostTextBox, Path=Text}"
                 Content="Post (Ctr + Enter)"
                 Grid.Column="1"
                 Padding="10,0" />

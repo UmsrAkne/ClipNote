@@ -19,6 +19,8 @@ namespace ClipNote.ViewModels
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
+        public string PostText { get; set; }
+
         public ObservableCollection<Text> Texts
         {
             get => texts;
@@ -47,6 +49,14 @@ namespace ClipNote.ViewModels
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        });
+
+        public DelegateCommand<string> AddTextCommand => new ((param) =>
+        {
+            Texts.Add(new Text(param));
+            SortCommand.Execute(currentSortType);
+            PostText = string.Empty;
+            RaisePropertyChanged(nameof(PostText));
         });
 
         public DelegateCommand ReadClipboardCommand => new (() =>
