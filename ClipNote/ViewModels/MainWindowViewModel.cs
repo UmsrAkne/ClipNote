@@ -15,7 +15,7 @@ namespace ClipNote.ViewModels
         private SortType currentSortType;
         private string lastCopiedText = string.Empty;
 
-        private ObservableCollection<Text> texts = new ObservableCollection<Text>();
+        private ObservableCollection<Text> texts = new ();
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
@@ -31,7 +31,7 @@ namespace ClipNote.ViewModels
             }
         }
 
-        public DelegateCommand<object> SortCommand => new DelegateCommand<object>((param) =>
+        public DelegateCommand<object> SortCommand => new ((param) =>
         {
             var sortType = (SortType)param;
             currentSortType = sortType;
@@ -49,7 +49,7 @@ namespace ClipNote.ViewModels
             }
         });
 
-        public DelegateCommand ReadClipboardCommand => new DelegateCommand(() =>
+        public DelegateCommand ReadClipboardCommand => new (() =>
         {
             if (!Clipboard.ContainsText())
             {
