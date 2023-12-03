@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ClipNote.Models;
 using ClipNote.Views;
 using Prism.Ioc;
 
@@ -16,6 +17,13 @@ namespace ClipNote
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            using var db = new DatabaseContext();
+            db.Database.EnsureCreated();
         }
     }
 }
