@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace ClipNote.Models
@@ -39,12 +40,26 @@ namespace ClipNote.Models
             }
         }
 
-        public string Value { get; private set; }
+        // ReSharper disable once UnusedMember.Global
+        // EntityFramework で使用するので、引数なしのコンストラクタが必要
+        public Text()
+        {
+        }
 
+        [Key]
+        [Required]
+        public int Id { get; set; }
+
+        [Required]
+        public string Value { get; private set; } = string.Empty;
+
+        [Required]
         public TextType Type { get; private set; } = TextType.Text;
 
+        [Required]
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
+        [Required]
         public string Comment { get; set; } = string.Empty;
     }
 }
