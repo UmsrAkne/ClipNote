@@ -15,6 +15,8 @@ namespace ClipNote.ViewModels
         private SortType currentSortType;
         private string lastCopiedText = string.Empty;
 
+        private DatabaseContext DatabaseContext { get; set; } = new ();
+
         private ObservableCollection<Text> texts = new ();
 
         public string Title { get => title; set => SetProperty(ref title, value); }
@@ -53,7 +55,11 @@ namespace ClipNote.ViewModels
 
         public DelegateCommand<string> AddTextCommand => new ((param) =>
         {
-            Texts.Add(new Text(param));
+            var text = new Text(param);
+            Texts.Add(text);
+            DatabaseContext.Texts.Add(text);
+            DatabaseContext.SaveChanges();
+
             SortCommand.Execute(currentSortType);
             PostText = string.Empty;
             RaisePropertyChanged(nameof(PostText));
@@ -74,8 +80,7 @@ namespace ClipNote.ViewModels
             }
 
             lastCopiedText = c;
-            Texts.Add(new Text(c));
-            SortCommand.Execute(currentSortType);
+            AddTextCommand.Execute(c);
         });
     }
 }
