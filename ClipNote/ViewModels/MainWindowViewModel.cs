@@ -14,16 +14,13 @@ namespace ClipNote.ViewModels
         private string title = "Prism Application";
         private SortType currentSortType;
         private string lastCopiedText = string.Empty;
+        private ObservableCollection<Text> texts = new ();
 
         public MainWindowViewModel()
         {
             Texts = new ObservableCollection<Text>(DatabaseContext.Texts);
             SortCommand.Execute(SortType.DateTime);
         }
-
-        private DatabaseContext DatabaseContext { get; set; } = new ();
-
-        private ObservableCollection<Text> texts = new ();
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
@@ -88,5 +85,7 @@ namespace ClipNote.ViewModels
             lastCopiedText = c;
             AddTextCommand.Execute(c);
         });
+
+        private DatabaseContext DatabaseContext { get; set; } = new ();
     }
 }
