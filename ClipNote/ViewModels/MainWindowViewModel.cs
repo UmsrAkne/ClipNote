@@ -10,7 +10,6 @@ namespace ClipNote.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
-        private string title = "Prism Application";
         private SortType currentSortType;
         private string lastCopiedText = string.Empty;
         private ObservableCollection<Text> texts = new ();
@@ -21,7 +20,7 @@ namespace ClipNote.ViewModels
             SortCommand.Execute(SortType.DateTime);
         }
 
-        public string Title { get => title; set => SetProperty(ref title, value); }
+        public string Title => "Prism Application";
 
         public string PostText { get; set; }
 
@@ -37,7 +36,7 @@ namespace ClipNote.ViewModels
             }
         }
 
-        public DelegateCommand<object> SortCommand => new ((param) =>
+        public DelegateCommand<object> SortCommand => new (param =>
         {
             var sortType = (SortType)param;
             currentSortType = sortType;
@@ -50,7 +49,7 @@ namespace ClipNote.ViewModels
             };
         });
 
-        public DelegateCommand<string> AddTextCommand => new ((param) =>
+        public DelegateCommand<string> AddTextCommand => new (param =>
         {
             var text = new Text(param);
             Texts.Add(text);
@@ -80,6 +79,6 @@ namespace ClipNote.ViewModels
             AddTextCommand.Execute(c);
         });
 
-        private DatabaseContext DatabaseContext { get; set; } = new ();
+        private DatabaseContext DatabaseContext { get; } = new ();
     }
 }
