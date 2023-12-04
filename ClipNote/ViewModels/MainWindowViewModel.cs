@@ -15,6 +15,12 @@ namespace ClipNote.ViewModels
         private SortType currentSortType;
         private string lastCopiedText = string.Empty;
 
+        public MainWindowViewModel()
+        {
+            Texts = new ObservableCollection<Text>(DatabaseContext.Texts);
+            SortCommand.Execute(SortType.DateTime);
+        }
+
         private DatabaseContext DatabaseContext { get; set; } = new ();
 
         private ObservableCollection<Text> texts = new ();
