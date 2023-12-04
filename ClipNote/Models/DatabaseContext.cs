@@ -9,6 +9,8 @@ namespace ClipNote.Models
     {
         private const string DbFileName = "db.sqlite";
 
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        // EntityFramework の利用に必須
         public DbSet<Text> Texts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

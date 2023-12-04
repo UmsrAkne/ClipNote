@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using ClipNote.Models;
@@ -11,9 +10,9 @@ namespace ClipNote.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
-        private string title = "Prism Application";
         private SortType currentSortType;
         private string lastCopiedText = string.Empty;
+        private ObservableCollection<Text> texts = new ();
 
         public MainWindowViewModel()
         {
@@ -21,11 +20,7 @@ namespace ClipNote.ViewModels
             SortCommand.Execute(SortType.DateTime);
         }
 
-        private DatabaseContext DatabaseContext { get; set; } = new ();
-
-        private ObservableCollection<Text> texts = new ();
-
-        public string Title { get => title; set => SetProperty(ref title, value); }
+        public string Title => "Prism Application";
 
         public string PostText { get; set; }
 
@@ -41,25 +36,20 @@ namespace ClipNote.ViewModels
             }
         }
 
-        public DelegateCommand<object> SortCommand => new ((param) =>
+        public DelegateCommand<object> SortCommand => new (param =>
         {
             var sortType = (SortType)param;
             currentSortType = sortType;
 
-            switch (sortType)
+            Texts = sortType switch
             {
-                case SortType.Type:
-                    Texts = new ObservableCollection<Text>(Texts.OrderBy(t => t.Type));
-                    break;
-                case SortType.DateTime:
-                    Texts = new ObservableCollection<Text>(Texts.OrderBy(t => t.CreatedAt));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                SortType.Type => new ObservableCollection<Text>(Texts.OrderBy(t => t.Type)),
+                SortType.DateTime => new ObservableCollection<Text>(Texts.OrderBy(t => t.CreatedAt)),
+                _ => Texts,
+            };
         });
 
-        public DelegateCommand<string> AddTextCommand => new ((param) =>
+        public DelegateCommand<string> AddTextCommand => new (param =>
         {
             var text = new Text(param);
             Texts.Add(text);
@@ -88,5 +78,7 @@ namespace ClipNote.ViewModels
             lastCopiedText = c;
             AddTextCommand.Execute(c);
         });
+
+        private DatabaseContext DatabaseContext { get; } = new ();
     }
 }

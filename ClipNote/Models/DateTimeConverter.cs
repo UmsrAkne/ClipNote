@@ -8,7 +8,7 @@ namespace ClipNote.Models
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((DateTime)value).ToString("yy/MM/dd HH:mm");
+            return value != null ? ((DateTime)value).ToString("yy/MM/dd HH:mm") : string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
