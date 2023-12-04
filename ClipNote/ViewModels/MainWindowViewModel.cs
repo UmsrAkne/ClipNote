@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using ClipNote.Models;
@@ -43,17 +42,12 @@ namespace ClipNote.ViewModels
             var sortType = (SortType)param;
             currentSortType = sortType;
 
-            switch (sortType)
+            Texts = sortType switch
             {
-                case SortType.Type:
-                    Texts = new ObservableCollection<Text>(Texts.OrderBy(t => t.Type));
-                    break;
-                case SortType.DateTime:
-                    Texts = new ObservableCollection<Text>(Texts.OrderBy(t => t.CreatedAt));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                SortType.Type => new ObservableCollection<Text>(Texts.OrderBy(t => t.Type)),
+                SortType.DateTime => new ObservableCollection<Text>(Texts.OrderBy(t => t.CreatedAt)),
+                _ => Texts,
+            };
         });
 
         public DelegateCommand<string> AddTextCommand => new ((param) =>
