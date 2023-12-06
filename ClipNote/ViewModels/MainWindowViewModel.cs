@@ -79,6 +79,16 @@ namespace ClipNote.ViewModels
             AddTextCommand.Execute(c);
         });
 
+        public DelegateCommand<Text> SendClipboardCommand => new ((param) =>
+        {
+            if (param == null)
+            {
+                return;
+            }
+
+            Clipboard.SetText(param.Value);
+        });
+
         private DatabaseContext DatabaseContext { get; } = new ();
     }
 }

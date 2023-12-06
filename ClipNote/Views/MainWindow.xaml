@@ -36,6 +36,12 @@
             Modifiers="Control" />
 
         <KeyBinding
+            Command="{Binding SendClipboardCommand}"
+            CommandParameter="{Binding ElementName=ListBox, Path=SelectedItem}"
+            Key="C"
+            Modifiers="Control" />
+
+        <KeyBinding
             Command="{Binding AddTextCommand}"
             CommandParameter="{Binding ElementName=PostTextBox, Path=Text}"
             Key="Enter"
@@ -54,7 +60,8 @@
             Grid.Row="1"
             HorizontalContentAlignment="Stretch"
             ItemsSource="{Binding Texts}"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            x:Name="ListBox">
 
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:Text}">
